@@ -13,7 +13,9 @@ export default class Homepage extends Component {
             <div className="columns" style={{'padding': '36px'}}>
               <div className="column is-narrow">
                 <div className="box" style={{'width': '200px'}}>
-                  <img src="http://bulma.io/images/placeholders/1280x960.png" />
+                  <figure class="image is-256x256">
+                    <img src="http://bulma.io/images/placeholders/1280x960.png" />
+                  </figure>
                 </div>
               </div>
               <div className="column">
