@@ -1,3 +1,5 @@
 tut-1
 node_modules
 .next
+tut-workshop
+npm-debug.log
