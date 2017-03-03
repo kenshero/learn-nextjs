@@ -2,9 +2,9 @@
 var postServices = require('./services')
 const resolveFunctions = {
   Query: {
-    posts() {
+    posts(_, {offset, limit}) {
       return new Promise((resolve, reject) => {
-        postServices.getPosts( data =>{
+        postServices.getPosts(offset, limit, (data) =>{
           resolve(data)
         })
       })

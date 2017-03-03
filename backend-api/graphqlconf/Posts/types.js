@@ -1,4 +1,11 @@
 // types.js
+const PostsData = `
+    type PostsData {
+      postData: [Posts]
+      postPageInfo: PostPageInfo
+    }
+`;
+
 const Posts = `
     type Posts {
       _id: String
@@ -6,4 +13,13 @@ const Posts = `
       content: String
     }
 `;
-module.exports = () => [Posts]
+
+const PostPageInfo = `
+    type PostPageInfo {
+      offset: Int
+      limit: Int
+      pageRange: Int
+    }
+`;
+
+module.exports = () => [PostsData, Posts, PostPageInfo]

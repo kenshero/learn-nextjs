@@ -1,13 +1,25 @@
 const { Posts } = require('../../db/conf');
 
-const getPosts = (callback) => {
-    Posts.find( (err, result) => {
+const getPosts = (offset, limit, callback) => {
+  Posts.count({}, (err, count) => {
+    const pageRange = Math.ceil(count / limit)
+    Posts.find().sort({_id: 'asc'}).skip(offset).limit(limit).exec((err, docs) => {
       if (err) {
         callback(err)
       } else {
-        callback(result)
+        const pageInfo = {
+          offset,
+          limit,
+          pageRange
+        }
+        const resData = {
+          postData: docs,
+          postPageInfo: pageInfo
+        }
+        callback(resData)
       }
-    });
+    })
+  })
 }
 
 const getPostById = (id, callback) => {
