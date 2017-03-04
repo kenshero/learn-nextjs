@@ -1,4 +1,4 @@
-// index.js
+// about.js
 import React, { Component } from 'react'
 
 import Navbar from '../components/Nav'

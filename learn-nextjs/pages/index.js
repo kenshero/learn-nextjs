@@ -4,12 +4,18 @@ import React, { Component } from 'react'
 import Navbar from '../components/Nav'
 import Header from '../components/Header'
 import Link from 'next/link'
+
+import client from '../graphdocuments/apolloconf'
+import { getPostsQuery } from '../graphdocuments/posts'
 import 'isomorphic-fetch'
 
 export default class extends Component {
     static async getInitialProps () {
-      const res = await fetch('https://jsonplaceholder.typicode.com/posts')
-      const posts = await res.json()
+      const gqlResult = await client.query(getPostsQuery)
+      const {errors, data} = gqlResult
+      const posts = data.posts.postData
+      const pageInfo = data.posts.postPageInfo
+
       return {
         posts
       }
@@ -36,9 +42,9 @@ export default class extends Component {
                   </div>
                 </div>
                 <div className="columns is-multiline">
-                {this.props.posts.map( (post) => {
+                {this.props.posts.map( (post, index) => {
                   return (
-                    <div className="column is-one-quarter" >
+                    <div className="column is-one-quarter" key={index}>
                       <div className="card" style={{'border': '1px #ddd solid'}}>
                         <div className="card-image">
                           <figure className="image is-4by3">
@@ -47,7 +53,7 @@ export default class extends Component {
                         </div>
                         <div className="card-content" style={{ 'height': '160px' }}>
                           <div className="content">
-                            <Link href='/new'>
+                            <Link href='/post'>
                               <a className="title is-4">
                                 {post.title}
                               </a>
