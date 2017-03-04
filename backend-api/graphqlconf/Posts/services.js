@@ -3,7 +3,7 @@ const { Posts } = require('../../db/conf');
 const getPosts = (offset, limit, callback) => {
   Posts.count({}, (err, count) => {
     const pageRange = Math.ceil(count / limit)
-    Posts.find().sort({_id: 'asc'}).skip(offset).limit(limit).exec((err, docs) => {
+    Posts.find().sort({_id: 'desc'}).skip(offset).limit(limit).exec((err, docs) => {
       if (err) {
         callback(err)
       } else {

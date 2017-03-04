@@ -1,3 +1,4 @@
+// posts.js
 import gql from 'graphql-tag'
 
 export const getPostsQuery = {
@@ -16,6 +17,38 @@ export const getPostsQuery = {
             }
         }
       }
+    `
+}
+
+export const getPostByIDQuery = (variables) => {
+  return {
+    query : gql`
+      query($postID: String!) {
+        post(postID: $postID) {
+          _id
+          title
+          content
+        }
+      }
     `,
-    forceFetch: true
+    variables
+  }
+}
+
+export const createPost = (variables) => {
+     return {
+       mutation: gql`
+          mutation createPost($title: String!, $content: String) {
+            createPost(
+                title: $title,
+                content: $content
+            ) {
+              _id
+              title
+              votes
+            }
+          }
+      `,
+    variables: variables
+  }
 }

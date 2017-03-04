@@ -53,7 +53,7 @@ export default class extends Component {
                         </div>
                         <div className="card-content" style={{ 'height': '160px' }}>
                           <div className="content">
-                            <Link href='/post'>
+                            <Link href={`/post?id=${post._id}`}>
                               <a className="title is-4">
                                 {post.title}
                               </a>

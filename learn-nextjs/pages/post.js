@@ -3,12 +3,28 @@ import React, { Component } from 'react'
 
 import Navbar from '../components/Nav'
 import Header from '../components/Header'
+import Link from 'next/link'
+
+import client from '../graphdocuments/apolloconf'
+import { getPostByIDQuery } from '../graphdocuments/posts'
+import 'isomorphic-fetch'
 
 export default class PostPage extends Component {
     static async getInitialProps (req) {
-      console.log(req.query)
+      if(req.query.id) {
+        const variables = {
+          postID: req.query.id
+        }
+        const gqlResult = await client.query(getPostByIDQuery(variables))
+        const {errors, data} = gqlResult
+        const post = data.post
+        return {
+          post
+        }
+      }
     }
     render () {
+      const { post } = this.props
         return (
           <div>
             <Header/>
@@ -23,12 +39,9 @@ export default class PostPage extends Component {
               <hr/>
               <div>
                 <div className="content">
-                  <h1>Hello World</h1>
+                  <h1>{ post.title }</h1>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus 
-                    ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu 
-                    lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, 
-                    interdum mattis neque.
+                    { post.content }
                   </p>
                 </div>
               </div>
