@@ -10,17 +10,46 @@ import { getPostsQuery } from '../graphdocuments/posts'
 import 'isomorphic-fetch'
 
 export default class extends Component {
-    static async getInitialProps () {
-      const gqlResult = await client.query(getPostsQuery)
+    static async getInitialProps (req) {
+      let paging ;
+      const limit = 5
+      if (req.query.page){
+        paging = {
+          offset : limit * (req.query.page - 1) ,
+          limit,
+          activePage: req.query.page
+        }
+      } else {
+        paging = {
+          offset : 0,
+          limit,
+          activePage: 1
+        }
+      }
+      const gqlResult = await client.query(getPostsQuery(paging))
       const {errors, data} = gqlResult
       const posts = data.posts.postData
       const pageInfo = data.posts.postPageInfo
 
       return {
-        posts
+        posts,
+        pageInfo
       }
     }
     render () {
+        const { pageInfo } = this.props
+        let pagination = [];
+        for (let i = 0; i < pageInfo.pageRange; i++) {
+          pagination.push(
+            <li key={i}>
+              <Link href={`/?page=${i+1}`}>
+                <a className={`pagination-link ${pageInfo.activePage == i + 1 ? 'is-current' : ''} `}> 
+                  { i + 1 }
+                </a>
+              </Link>
+            </li>
+          );
+        }
         return (
           <div>
             <Header/>
@@ -67,6 +96,13 @@ export default class extends Component {
                   )
                   })
                 }
+                </div>
+                <div>
+                  <nav className="pagination">
+                    <ul className="pagination-list">
+                      {pagination}
+                    </ul>
+                  </nav>
                 </div>
             </div> 
           </div>

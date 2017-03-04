@@ -1,6 +1,6 @@
 const { Posts } = require('../../db/conf');
 
-const getPosts = (offset, limit, callback) => {
+const getPosts = (offset, limit, activePage, callback) => {
   Posts.count({}, (err, count) => {
     const pageRange = Math.ceil(count / limit)
     Posts.find().sort({_id: 'desc'}).skip(offset).limit(limit).exec((err, docs) => {
@@ -10,6 +10,7 @@ const getPosts = (offset, limit, callback) => {
         const pageInfo = {
           offset,
           limit,
+          activePage,
           pageRange
         }
         const resData = {

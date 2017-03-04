@@ -1,10 +1,11 @@
 // posts.js
 import gql from 'graphql-tag'
 
-export const getPostsQuery = {
+export const getPostsQuery = (variables) => {
+  return {
     query : gql`
-      query {
-        posts(offset: 0, limit: 5){
+      query($offset: Int, $limit: Int, $activePage: Int) {
+        posts(offset: $offset, limit: $limit, activePage: $activePage){
             postData {
               _id
               title
@@ -13,11 +14,14 @@ export const getPostsQuery = {
             postPageInfo {
               offset
               limit
+              activePage
               pageRange
             }
         }
       }
-    `
+    `,
+    variables
+  }
 }
 
 export const getPostByIDQuery = (variables) => {

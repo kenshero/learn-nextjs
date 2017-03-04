@@ -18,6 +18,7 @@ const PostPageInfo = `
     type PostPageInfo {
       offset: Int
       limit: Int
+      activePage: Int
       pageRange: Int
     }
 `;

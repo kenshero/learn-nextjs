@@ -5,7 +5,7 @@ const resolverPosts = require('./Posts/resolvers');
 var { merge } = require('lodash');
 const Query = `
   type Query {
-    posts(offset: Int, limit: Int): PostsData
+    posts(offset: Int, limit: Int, activePage: Int): PostsData
     post(postID: String!): Posts
   }
 `;
