@@ -49,7 +49,7 @@ export const createPost = (variables) => {
             ) {
               _id
               title
-              votes
+              content
             }
           }
       `,

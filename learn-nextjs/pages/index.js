@@ -64,6 +64,13 @@ export default class extends Component {
             </div>
             <div className="container">
                 <div className="columns">
+                  <div className="column">
+                    <Link href="/newpost">
+                      <a className="button is-info is-pulled-right">+ Add Post</a>
+                    </Link>
+                  </div>
+                </div>
+                <div className="columns">
                   <div className="column is-half is-offset-one-quarter">
                     <center>
                       <h1 className="title"> News </h1>
