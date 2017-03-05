@@ -20,7 +20,8 @@ export const getPostsQuery = (variables) => {
         }
       }
     `,
-    variables
+    variables,
+    forceFetch: true
   }
 }
 

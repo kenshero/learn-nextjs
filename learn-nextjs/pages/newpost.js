@@ -6,7 +6,6 @@ import Header from '../components/Header'
 
 import client from '../graphdocuments/apolloconf'
 import { createPost } from '../graphdocuments/posts'
-import Link from 'next/link'
 
 export default class Homepage extends Component {
     constructor(props) {
@@ -35,9 +34,8 @@ export default class Homepage extends Component {
     async handleSubmit() {
       const variables = this.state
       try {
-        const gqlResult = await client.mutate(createPost(variables))
-        const {errors, data} = gqlResult
-        window.location.href = '/'
+        await client.mutate(createPost(variables))
+        window.location.href = '/' // bad practice
       } catch (err) {
         console.log(err)
       }
@@ -62,7 +60,7 @@ export default class Homepage extends Component {
                 <textarea className="textarea is-focused" onChange={ this.handleContentChange } value={ this.state.content }></textarea>
               </p>
               <p className="control">
-                <button className="button is-primary" onClick={ this.handleSubmit } >Submit</button>
+                <a className="button is-primary" onClick={ this.handleSubmit } >Submit</a>
               </p>
             </div>
          </div>
