@@ -1,3 +1,4 @@
+// apolloconf.js
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 
 const client = new ApolloClient({
