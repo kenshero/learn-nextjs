@@ -4,3 +4,5 @@ node_modules
 tut-workshop
 npm-debug.log
 nextjs-issue
+nextjs-boilerplate
+nextjs-redux
